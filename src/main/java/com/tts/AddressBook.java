@@ -9,7 +9,7 @@ public class AddressBook {
 
     public AddressBook() {
 
-        entries = new ArrayList<Entry>();
+        entries = new ArrayList<>();
     }
     Scanner scanner = new Scanner(System.in);
 
@@ -78,71 +78,72 @@ public class AddressBook {
             String search = scanner.next();
 
             switch (searchType) {
-                case 1:
-                    searchByFirstName(search);
-                    break;
-                case 2:
-                    searchByLastName(search);
-                    break;
-                case 3:
-                    searchByPhoneNum(search);
-                    break;
-                case 4:
-                    searchByEmail(search);
-                    break;
-                default:
-                    System.out.println("Error! Address not found!\n");
+                case 1 -> searchByFirstName(search);
+                case 2 -> searchByLastName(search);
+                case 3 -> searchByPhoneNum(search);
+                case 4 -> searchByEmail(search);
+                default -> System.out.println("Error! Address not found!\n");
             }
         }
     }
 
     public void searchByEmail(String search) {
+        boolean findSearchValue = false;
         for(Entry e : entries){
             if(e.getEmail().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
                 System.out.println(e.toString());
                 System.out.println("*********");
-            }else{
-                System.out.println("No results found!\n");
+                findSearchValue = true;
             }
+        }
+        if(!findSearchValue){
+            System.out.println("No results found!\n");
         }
     }
 
     public void searchByPhoneNum(String search) {
-
-            for (Entry e : entries) {
-                if (e.getPhoneNum().startsWith(search)) {
-                    System.out.println("*********");
-                    System.out.println(e.toString());
-                    System.out.println("*********");
-
-                }else{
-                    System.out.println("No results found!\n");
-                }
+        boolean findSearchValue = false;
+        for (Entry e : entries) {
+            if (e.getPhoneNum().startsWith(search)) {
+                System.out.println("*********");
+                System.out.println(e.toString());
+                System.out.println("*********");
+                findSearchValue = true;
             }
+        }
+        if(!findSearchValue){
+            System.out.println("No results found!\n");
+        }
     }
 
     public void searchByLastName(String search) {
+        boolean findSearchValue = false;
         for(Entry e : entries){
             if(e.getLastName().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
                 System.out.println(e.toString());
                 System.out.println("*********");
-            }else{
-                System.out.println("No results found!\n");
+                findSearchValue = true;
             }
+        }
+        if(!findSearchValue){
+            System.out.println("No results found!\n");
         }
     }
 
     public void searchByFirstName(String search) {
+        boolean findSearchValue = false;
         for(Entry e : entries){
             if(e.getFirstName().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
                 System.out.println(e.toString());
                 System.out.println("*********");
-            }else{
-                System.out.println("No results found!\n");
+                findSearchValue = true;
             }
+        }
+        if(!findSearchValue){
+            System.out.println("No results found!\n");
         }
     }
 
@@ -150,12 +151,12 @@ public class AddressBook {
     public void removeEntry() {
         System.out.println("Enter an entry's email to remove: ");
         String email = scanner.next();
-        int validEmail = email.indexOf("@");
-        int validEmail1 = email.indexOf(".");
 
-        if(validEmail == -1 || validEmail1 == -1){
+        while(!(email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))){
             System.out.println("You entered an invalid email address!");
-        }else{
+            email = scanner.next();
+        }
             Entry eRemoved = null;
             for(Entry e : entries){
                 if(e.getEmail().equalsIgnoreCase(email)){
@@ -172,7 +173,7 @@ public class AddressBook {
                 System.out.println("Error! Email address not found!");
             }
 
-        }
+
     }
 
     public void deleteAddressBook(){
