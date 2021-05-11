@@ -43,22 +43,23 @@ public class AddressBook {
         Entry e = new Entry(firstName, lastName, phoneNum, email);
         entries.add(e);
         System.out.println();
-        System.out.println("Added new entry!\n");
+        System.out.println("Added new entry!\n\n");
         System.out.println(e.toString());
         System.out.println();
 
     }
-        public void printAllEntries(){
-            if(entries.size() == 0){
-                System.out.println("Address Book is empty!");
-            }else {
-                for (Entry e : entries) {
-                    System.out.println("**************");
-                    System.out.println(e.toString());
-                    System.out.println("**************");
-                }
+
+    public void printAllEntries(){
+        if(entries.size() == 0){
+            System.out.println("Address Book is empty!");
+        }else {
+            for (Entry e : entries) {
+                System.out.println("**************");
+                System.out.println(e.toString());
+                System.out.println("**************");
             }
         }
+    }
 
     public void searchEntry() {
 
@@ -163,7 +164,7 @@ public class AddressBook {
                     eRemoved = e;
                     System.out.println("Deleted the following entry:\n");
                     System.out.println("**************");
-                    System.out.println(e.toString());
+                    System.out.println(eRemoved.toString());
                     System.out.println("**************");
                 }
             }
