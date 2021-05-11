@@ -8,6 +8,7 @@ public class AddressBook {
     ArrayList<Entry> entries;
 
     public AddressBook() {
+
         entries = new ArrayList<Entry>();
     }
     Scanner scanner = new Scanner(System.in);
@@ -24,22 +25,27 @@ public class AddressBook {
         System.out.println("Enter Phone Number: ");
         String phoneNum = scanner.next();
 
+        while (!(phoneNum.matches("\\d{10}"))){
+            System.out.println("Invalid phone number! Please enter 10 digit number.");
+            phoneNum = scanner.next();
+        }
+
+
         System.out.println("Enter Email: ");
         String email = scanner.next();
 
-        int validEmail = email.indexOf("@");
-        int validEmail1 = email.indexOf(".");
-
-        if(validEmail == -1 || validEmail1 == -1){
+        while(!(email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))){
             System.out.println("You entered an invalid email address!");
-        }else{
-
-            Entry e = new Entry(firstName, lastName, phoneNum, email);
-            entries.add(e);
-            System.out.println(e.toString());
-            System.out.print("Added new entry!");
-            System.out.println();
+            email = scanner.next();
         }
+
+        Entry e = new Entry(firstName, lastName, phoneNum, email);
+        entries.add(e);
+        System.out.println();
+        System.out.println("Added new entry!\n");
+        System.out.println(e.toString());
+        System.out.println();
 
     }
         public void printAllEntries(){
@@ -62,17 +68,11 @@ public class AddressBook {
         System.out.println("4) Email address");
         System.out.println("Chose a search type: ");
         String searchOption = scanner.next();
-        int searchType = 0;
-        try{
-            searchType = Integer.parseInt(searchOption);
-        }catch(Exception e){
-            System.out.println("\nInvalid search option.\n");
-
-        }
+        int searchType = Integer.parseInt(searchOption);
 
 
         if(searchType < 1 || searchType > 4){
-            System.out.println("Please enter a valid number (1 - 4).");
+            System.out.println("Invalid search option! Please enter a valid number (1 - 4).");
         }else {
             System.out.println("Enter your search: ");
             String search = scanner.next();
@@ -96,7 +96,7 @@ public class AddressBook {
         }
     }
 
-    private void searchByEmail(String search) {
+    public void searchByEmail(String search) {
         for(Entry e : entries){
             if(e.getEmail().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
@@ -108,19 +108,21 @@ public class AddressBook {
         }
     }
 
-    private void searchByPhoneNum(String search) {
-        for(Entry e : entries){
-            if(e.getPhoneNum().startsWith(search)){
-                System.out.println("*********");
-                System.out.println(e.toString());
-                System.out.println("*********");
-            }else{
-                System.out.println("No results found!\n");
+    public void searchByPhoneNum(String search) {
+
+            for (Entry e : entries) {
+                if (e.getPhoneNum().startsWith(search)) {
+                    System.out.println("*********");
+                    System.out.println(e.toString());
+                    System.out.println("*********");
+
+                }else{
+                    System.out.println("No results found!\n");
+                }
             }
-        }
     }
 
-    private void searchByLastName(String search) {
+    public void searchByLastName(String search) {
         for(Entry e : entries){
             if(e.getLastName().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
@@ -132,7 +134,7 @@ public class AddressBook {
         }
     }
 
-    private void searchByFirstName(String search) {
+    public void searchByFirstName(String search) {
         for(Entry e : entries){
             if(e.getFirstName().toUpperCase().startsWith(search.toUpperCase())){
                 System.out.println("*********");
@@ -143,6 +145,7 @@ public class AddressBook {
             }
         }
     }
+
 
     public void removeEntry() {
         System.out.println("Enter an entry's email to remove: ");

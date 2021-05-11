@@ -2,7 +2,7 @@ package com.tts;
 
 import java.util.Scanner;
 
-public class TestBook {
+public class TestAddressBook {
     public static void main(String[] args) {
         AddressBook book = new AddressBook();
 
@@ -17,7 +17,7 @@ public class TestBook {
             System.out.println("5) Delete Book\n");
             System.out.println("6) Quit\n");
             System.out.println("Please choose what you'd like to do with the database: ");
-//            System.out.println();
+
 
             option = scanner.nextInt();
 
@@ -26,26 +26,16 @@ public class TestBook {
             }else {
 
                 switch (option) {
-                    case 1:
-                        book.addNewEntry();
-                        break;
-                    case 2:
-                        book.removeEntry();
-                        break;
-                    case 3:
-                        book.searchEntry();
-                        break;
-                    case 4:
-                        book.printAllEntries();
-                        break;
-                    case 5:
-                        book.deleteAddressBook();
-                        break;
-                    default:
-                        System.out.println("Please enter a valid number (1 - 5).");
+                    case 1 -> book.addNewEntry();
+                    case 2 -> book.removeEntry();
+                    case 3 -> book.searchEntry();
+                    case 4 -> book.printAllEntries();
+                    case 5 -> book.deleteAddressBook();
+                    default -> System.out.println("Exit program");
                 }
             }
 
         }
+        scanner.close();
     }
 }
